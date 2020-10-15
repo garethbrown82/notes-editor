@@ -15,7 +15,7 @@ app.get('/', async (request, response) => {
     // Use admin to access a reference to the notes collection in Firestore
     const notesRef = admin.firestore().collection('notes');
   
-    // Get all notes from the notes collection
+    // Get all notes from the notes collection in descending order of 'created' field
     const notesCollection = await notesRef.orderBy('created', 'desc').get();
   
     // Add notes document data to an array
