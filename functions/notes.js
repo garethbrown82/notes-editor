@@ -16,7 +16,7 @@ app.get('/', async (request, response) => {
     const notesRef = admin.firestore().collection('notes');
   
     // Get all notes from the notes collection
-    const notesCollection = await notesRef.get();
+    const notesCollection = await notesRef.orderBy('created', 'desc').get();
   
     // Add notes document data to an array
     let notes = [];
@@ -28,7 +28,28 @@ app.get('/', async (request, response) => {
     response.json(notes);
   } catch (error) {
     // Log and return error status if things go wrong
-    functions.logger.error('There was an error while retrieving notes from Firestore.', error);
+    functions.logger.error(error);
+    response.status(500).send('Internal server error');
+  }
+});
+
+app.post('/', async (request, response) => {
+  functions.logger.info('Triggering post note request', { structuredData: true });
+  
+  // Construct the note object to add to Firestore
+  const note = { 
+    created: admin.firestore.Timestamp.now(),
+    title: request.body.title,
+    text: request.body.text, 
+  }
+
+  try {
+    // Save the note to the Firestore notes collection
+    await admin.firestore().collection('notes').add(note);
+    response.json({ message: 'Note added successfully'});
+  } catch (error) {
+    // Log and return error status if things go wrong
+    functions.logger.error(error);
     response.status(500).send('Internal server error');
   }
 });
