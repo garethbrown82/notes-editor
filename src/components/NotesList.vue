@@ -8,16 +8,20 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+
 export default {
-  data() {
+  // Using the composition API to set our component variables
+  setup() {
+    let notes = ref([
+      { title: 'Shopping List', text: 'Tomatoes, Milk, Salt' },
+      { title: 'Book', text: 'Name of the wind' },
+      { title: 'Note', text: 'This is a note' },
+    ]);
+    
     return {
-      // Store the notes using the components local data (component state)
-      notes: [
-        { title: 'Shopping List', text: 'Tomatoes, Milk, Salt' },
-        { title: 'Book', text: 'Name of the wind' },
-        { title: 'Note', text: 'This is a note' },
-      ],
-    }
+      notes,
+    };
   }
 }
 </script>
