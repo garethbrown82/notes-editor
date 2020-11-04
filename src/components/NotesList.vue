@@ -8,16 +8,21 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
 export default {
   // Using the composition API to set our component variables
   setup() {
-    let notes = ref([
-      { title: 'Shopping List', text: 'Tomatoes, Milk, Salt' },
-      { title: 'Book', text: 'Name of the wind' },
-      { title: 'Note', text: 'This is a note' },
-    ]);
+    let notes = ref([]);
+
+    onMounted(() => {
+      axios
+        .get('http://localhost:5001/notes-editor-c330b/us-central1/notes')
+        .then((notesResult) => {
+          notes.value = notesResult;
+        });
+    });
     
     return {
       notes,
