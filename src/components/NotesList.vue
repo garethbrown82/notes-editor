@@ -20,7 +20,7 @@ export default {
       axios
         .get('http://localhost:5001/notes-editor-c330b/us-central1/notes')
         .then((notesResult) => {
-          notes.value = notesResult;
+          notes.value = notesResult.data;
         });
     });
     
