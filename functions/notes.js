@@ -1,9 +1,14 @@
 const functions = require('firebase-functions');
 const express = require('express');
 const admin = require('firebase-admin');
+// Import cors package
+const cors = require('cors');
 
 // Create express app
 const app = express();
+
+// Bind cors middleware to the app
+app.use(cors({ origin: true }));
 
 // Initialize Firebase admin to access Firestore from the server
 admin.initializeApp();
