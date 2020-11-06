@@ -1,16 +1,19 @@
 <template>
   <div class="wrapper">
+    <CreateNote />
     <NotesList />
   </div>
 </template>
 
 <script>
-import NotesList from './components/NotesList.vue'
+import NotesList from './components/NotesList.vue';
+import CreateNote from './components/CreateNote';
 
 export default {
   name: 'App',
   components: {
-    NotesList
+    NotesList,
+    CreateNote,
   }
 }
 </script>
